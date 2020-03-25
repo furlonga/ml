@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8a5023d6-3d77-4f6d-a83d-26f795da68f5" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="1ZJO559QPfBJJ7mM8fYZsfid4Q7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="full.screen.before.presentation.mode" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/discriminator.py" />
+  </component>
+  <component name="RunManager" selected="Python.gan">
+    <configuration name="discriminator" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="gan" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python3.8" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/discriminator.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="gan" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="gan" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/gan.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.gan" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8a5023d6-3d77-4f6d-a83d-26f795da68f5" name="Default Changelist" comment="" />
+      <created>1584553543799</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1584553543799</updated>
+      <workItem from="1584553545120" duration="3068000" />
+      <workItem from="1584564885284" duration="8532000" />
+      <workItem from="1584642194269" duration="1280000" />
+      <workItem from="1584652343397" duration="3024000" />
+      <workItem from="1584983150950" duration="1532000" />
+      <workItem from="1585149659084" duration="5000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="418" y="212" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584553557837">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="418" y="212" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.28.1920.1052@0.28.1920.1052" timestamp="1584553557837" />
+    <state x="743" y="312" width="424" height="478" key="FileChooserDialogImpl" timestamp="1584553554614">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="743" y="312" width="424" height="478" key="FileChooserDialogImpl/0.28.1920.1052@0.28.1920.1052" timestamp="1584553554614" />
+    <state width="918" height="321" key="GridCell.Tab.0.bottom" timestamp="1584643474442">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="918" height="321" key="GridCell.Tab.0.bottom/0.28.1920.1052@0.28.1920.1052" timestamp="1584643474442" />
+    <state width="918" height="321" key="GridCell.Tab.0.center" timestamp="1584643474441">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="918" height="321" key="GridCell.Tab.0.center/0.28.1920.1052@0.28.1920.1052" timestamp="1584643474441" />
+    <state width="918" height="321" key="GridCell.Tab.0.left" timestamp="1584643474440">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="918" height="321" key="GridCell.Tab.0.left/0.28.1920.1052@0.28.1920.1052" timestamp="1584643474440" />
+    <state width="918" height="321" key="GridCell.Tab.0.right" timestamp="1584643474442">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="918" height="321" key="GridCell.Tab.0.right/0.28.1920.1052@0.28.1920.1052" timestamp="1584643474442" />
+    <state width="918" height="321" key="GridCell.Tab.1.bottom" timestamp="1584643474444">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="918" height="321" key="GridCell.Tab.1.bottom/0.28.1920.1052@0.28.1920.1052" timestamp="1584643474444" />
+    <state width="918" height="321" key="GridCell.Tab.1.center" timestamp="1584643474443">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="918" height="321" key="GridCell.Tab.1.center/0.28.1920.1052@0.28.1920.1052" timestamp="1584643474443" />
+    <state width="918" height="321" key="GridCell.Tab.1.left" timestamp="1584643474443">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="918" height="321" key="GridCell.Tab.1.left/0.28.1920.1052@0.28.1920.1052" timestamp="1584643474443" />
+    <state width="918" height="321" key="GridCell.Tab.1.right" timestamp="1584643474443">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state width="918" height="321" key="GridCell.Tab.1.right/0.28.1920.1052@0.28.1920.1052" timestamp="1584643474443" />
+    <state x="629" y="381" key="com.intellij.ide.util.TipDialog" timestamp="1585149659793">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="629" y="381" key="com.intellij.ide.util.TipDialog/0.28.1920.1052@0.28.1920.1052" timestamp="1585149659793" />
+    <state x="535" y="214" width="892" height="680" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1584570458013">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="535" y="214" width="892" height="680" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.28.1920.1052@0.28.1920.1052" timestamp="1584570458013" />
+    <state x="623" y="260" width="672" height="678" key="search.everywhere.popup" timestamp="1584553699350">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="623" y="260" width="672" height="678" key="search.everywhere.popup/0.28.1920.1052@0.28.1920.1052" timestamp="1584553699350" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/gan$gan.coverage" NAME="gan Coverage Results" MODIFIED="1584642737783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+  </component>
+</project>
