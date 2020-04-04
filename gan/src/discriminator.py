@@ -2,22 +2,32 @@ import torch
 import torch.nn as nn
 
 
+# TODO: Add device agnostic for cuda
+#       Additionally,
 class Discriminator(nn.Module):
-    def __init__(self, num_layers, num_nodes, activations, kernels, strides, dropouts, batch_size):
+    def __init__(self, num_layers, num_nodes, device, activations, kernels, strides, dropouts, optimizer, criterion):
+
         super(Discriminator, self).__init__()
         self.layers = nn.ModuleList([])
+
+        self.device = device
+        self.optimizer = optimizer
+        self.loss = criterion
+
         # num layers is input/output inclusive
         self.num_layers = num_layers
+        self.output_layer = None
         # num_nodes represents the nodes at each layer of the network and is of size num_layers
         self.num_nodes = num_nodes
         self.num_conv = 0
+
         # of size num_layers - 1
         self.activations = activations
         self.kernels = kernels
         self.strides = strides
+
         # of size num_layers - 2
         self.dropouts = dropouts
-        self.training = False
 
         # append layers
         for i in range(self.num_layers - 2):
@@ -28,10 +38,11 @@ class Discriminator(nn.Module):
                                          stride=self.strides[i]))
             self.num_conv += 1
 
-        assert len(self.kernels) == len(self.strides) \
-               == len(self.activations) - 1, "mismatch on module parameters"
-        assert len(self.activations) == self.num_layers - 1 \
-               == len(self.num_nodes) - 1, "mismatch on module parameters"
+        # Asserts to ensure legal parameters were entered
+        assert not len(self.kernels) == len(self.strides) != len(
+            self.activations) - 1, "mismatch on module parameters"
+        assert not len(self.activations) == self.num_layers - 1 != len(
+            self.num_nodes) - 1, "mismatch on module parameters"
 
     def forward(self, x):
         for index in range(self.num_conv):
@@ -44,11 +55,27 @@ class Discriminator(nn.Module):
         # reshape the tensor
         x = x.view(1, -1)
 
-        # use of the word convolutions is confusing here
-        linear = nn.Linear(self.num_flat_features(x), 1)
-        x = linear(x)
+        # Check to see if there is a output layer predefined.
+        if self.output_layer is None:
+            self.output_layer = nn.Linear(self.num_flat_features(x), 1)
+
+        x = self.output_layer(x)
         x = self.activation(self.activations[-1])(x)
         return x
+
+    def batch_train(self, train_batch, targets, optimizer, criterion):
+        # This is one epoch of training the discriminator.
+        # This is called from GAN. Targets are manually supplied.
+        self.train(True)
+        optimizer.zero_grad()
+        # Pass the batch through the model (CUDA)
+        prediction = self(train_batch.to(self.device))
+        # Calculate loss
+        loss = criterion(prediction, targets)
+        loss.backward()
+        optimizer.step()
+
+        return loss
 
     @staticmethod
     def num_flat_features(x):
