@@ -5,14 +5,12 @@ import torch.nn as nn
 # TODO: Add device agnostic for cuda
 #       Additionally,
 class Discriminator(nn.Module):
-    def __init__(self, num_layers, num_nodes, device, activations, kernels, strides, dropouts, optimizer, criterion):
+    def __init__(self, num_layers, num_nodes, device, activations, kernels, strides, dropouts):
 
         super(Discriminator, self).__init__()
         self.layers = nn.ModuleList([])
 
         self.device = device
-        self.optimizer = optimizer
-        self.loss = criterion
 
         # num layers is input/output inclusive
         self.num_layers = num_layers
