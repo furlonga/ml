@@ -1,6 +1,8 @@
 import torch
 import torch.nn as nn
 
+torch.set_default_dtype(torch.float64)
+
 
 # TODO: Add device agnostic for cuda
 #       Additionally,
@@ -29,7 +31,7 @@ class Generator(nn.Module):
         self.batch_norms = []
         for index, value in enumerate(batch_norms):
             if value != 0:
-                self.batch_norms.append(nn.BatchNorm2d(num_features=self.num_nodes[index + 2]))
+                self.batch_norms.append(nn.BatchNorm2d(num_features=self.num_nodes[index + 2]).cuda())
             else:
                 self.batch_norms.append(0)
         # of size num_layers - 2
@@ -43,10 +45,10 @@ class Generator(nn.Module):
         # append convolutional layers
         for i in range(1, self.num_layers - 1):
             self.layers.append(nn.Conv2d(self.num_nodes[i],
-                                         self.num_nodes[i+1],
+                                         self.num_nodes[i + 1],
                                          padding=True,
-                                         kernel_size=self.kernels[i-1],
-                                         stride=self.strides[i-1]))
+                                         kernel_size=self.kernels[i - 1],
+                                         stride=self.strides[i - 1]))
             self.num_conv += 1
 
         # Asserts to ensure legal parameters were entered
@@ -70,12 +72,24 @@ class Generator(nn.Module):
                 x = self.upsample(x)
             x = self.layers[index](x)
             if self.batch_norms[index] != 0:
-                print(x.shape)
-                print(self.batch_norms[index])
                 x = self.batch_norms[index](x)
             x = self.activation(self.activations[index])(x)
 
         return x
+
+    def batch_train(self, discriminator, train_batch, targets, criterion, optimizer):
+        # This is one epoch of training the discriminator.
+        # This is called from GAN. Targets are manually supplied.
+        self.train()
+        optimizer.zero_grad()
+        # Pass the batch through the model (CUDA)
+        prediction = discriminator(self(train_batch))
+        # Calculate loss
+        loss = criterion(prediction, targets)
+        loss.backward()
+        optimizer.step()
+        self.eval()
+        return loss
 
     @staticmethod
     def num_flat_features(x):
