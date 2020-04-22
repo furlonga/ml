@@ -12,7 +12,8 @@ class Generator(nn.Module):
         self.layers = nn.ModuleList([])
         # num layers is input/output inclusive
         self.num_layers = num_layers
-        # num_nodes represents the nodes at each layer of the network and is of size num_layers
+        # num_nodes represents the nodes at each layer of the network
+        # and is of size num_layers
         self.num_nodes = num_nodes
         self.num_conv = 0
         # of size num_layers - 1
@@ -27,7 +28,8 @@ class Generator(nn.Module):
         self.batch_norms = []
         for index, value in enumerate(batch_norms):
             if value != 0:
-                self.batch_norms.append(nn.BatchNorm2d(num_features=self.num_nodes[index + 2]).cuda())
+                self.batch_norms.append(nn.BatchNorm2d(
+                    num_features=self.num_nodes[index + 2]).cuda())
             else:
                 self.batch_norms.append(0)
         # of size num_layers - 2
@@ -82,7 +84,8 @@ class Generator(nn.Module):
 
         return x
 
-    def batch_train(self, discriminator, train_batch, targets, criterion, optimizer):
+    def batch_train(self, discriminator, train_batch, targets,
+                    criterion, optimizer):
         # This is one epoch of training the discriminator.
         # This is called from GAN. Targets are manually supplied.
         self.train()

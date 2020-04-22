@@ -64,18 +64,23 @@ class Discriminator(nn.Module):
         x = self.activation(self.activations[-1])(x)
         return x
 
-    def batch_train(self, train_batch, targets, criterion, optimizer):
+    def batch_train(self, train_batch, targets, criterion, optimizer, train):
         # This is one epoch of training the discriminator.
         # This is called from GAN. Targets are manually supplied.
-        self.train()
-        optimizer.zero_grad()
+        if train:
+            self.train()
+            optimizer.zero_grad()
+        else:
+            self.eval()
+
         # Pass the batch through the model (CUDA)
         prediction = self(train_batch.to(self.device, dtype=torch.float64))
 
         # Calculate loss
         loss = criterion(prediction, targets)
-        loss.backward()
-        optimizer.step()
+        if train:
+            loss.backward()
+            optimizer.step()
         self.eval()
         return loss
 

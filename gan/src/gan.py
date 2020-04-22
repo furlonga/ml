@@ -12,9 +12,9 @@ import torch
 torch.set_default_dtype(torch.float64)
 
 parser = argparse.ArgumentParser(description='Neural Net to Model FF PUFs')
-parser.add_argument('-dlr', type=float, default=0.0008, metavar='LR',
+parser.add_argument('-dlr', type=float, default=0.0015, metavar='LR',
                     help='Learning rate for discriminator (default: 0.001)')
-parser.add_argument('-glr', type=float, default=0.001, metavar='LR',
+parser.add_argument('-glr', type=float, default=0.0001, metavar='LR',
                     help='Learning rate for generator (default: 0.001)')
 parser.add_argument('--cuda', type=bool, default=True,
                     help='Should the program use CUDA?')
@@ -24,6 +24,9 @@ args = parser.parse_args()
 t_loss = []
 f_loss = []
 g_loss = []
+
+def wasserstein_loss(prediction, target):
+    raise NotImplementedError
 
 
 class GAN:
@@ -66,11 +69,17 @@ class GAN:
         for epoch in range(epochs):
             i = 0
             initial_loss = self.train_generator()
+            true_loss = 1.
+            false_loss = 1.
             print(f"#\tInitial Generator Loss: {initial_loss}")
             for data, target in dataloader:
-                true_loss, false_loss = self.train_discriminator(data)
+                if false_loss > 0.7:
+                    true_loss, false_loss = self.train_discriminator(data, True)
+                else:
+                    true_loss, false_loss = self.train_discriminator(data,
+                                                                     False)
                 generator_loss = self.train_generator()
-                if i % 1 == 0:
+                if i % 10 == 0:
                     print(
                         f"@\tIndex: {i}\tTrue Loss: {true_loss}\t"
                         f"False Loss: {false_loss}\t"
@@ -79,7 +88,7 @@ class GAN:
                 i += 1
         self.test()
 
-    def train_discriminator(self, train_data):
+    def train_discriminator(self, train_data, train):
 
         # add noise to labels
         true = torch.ones((self.batch_size, 1))
@@ -96,7 +105,7 @@ class GAN:
         true_images = train_data[index]
         true_loss = self.discriminator.batch_train(true_images, true,
                                                    self.d_criterion,
-                                                   self.d_optimizer)
+                                                   self.d_optimizer, train)
 
         # FIXME: Extract 100 to argument
         noise = torch.randn(self.batch_size, 1, 1, 100, dtype=torch.float64).to(
@@ -104,7 +113,7 @@ class GAN:
         generated_images = self.generator(noise)
         false_loss = self.discriminator.batch_train(generated_images, false,
                                                     self.d_criterion,
-                                                    self.d_optimizer)
+                                                    self.d_optimizer, train)
 
         return true_loss, false_loss
 
@@ -164,4 +173,4 @@ if __name__ == "__main__":
                        ])),
         batch_size=model.batch_size, shuffle=True)
 
-    model.train(1, train_loader)
+    model.train(10, train_loader)
