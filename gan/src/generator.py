@@ -4,17 +4,12 @@ import torch.nn as nn
 torch.set_default_dtype(torch.float64)
 
 
-# TODO: Add device agnostic for cuda
-#       Additionally,
 class Generator(nn.Module):
-    def __init__(self, num_layers, num_nodes, device, activations, kernels,
-                 strides, upsamples, batch_norms, dropouts, batch_size):
-
+    def __init__(self, num_layers, num_nodes, activations, kernels,
+                 strides, upsamples, batch_norms, dropouts):
         super(Generator, self).__init__()
-        self.layers = nn.ModuleList([])
 
-        self.device = device
-        self.batch_size = batch_size
+        self.layers = nn.ModuleList([])
         # num layers is input/output inclusive
         self.num_layers = num_layers
         # num_nodes represents the nodes at each layer of the network and is of size num_layers
@@ -26,6 +21,7 @@ class Generator(nn.Module):
         self.strides = strides
         self.upsamples = upsamples
 
+        # function declarations
         self.upsample = nn.Upsample(scale_factor=2)
         # construct batch_norms
         self.batch_norms = []
@@ -58,21 +54,30 @@ class Generator(nn.Module):
             self.num_nodes) - 1, "mismatch on module parameters"
 
     def forward(self, x):
+        # find the batch size during a forward pass
+        batch_size = x.shape[0]
 
         # Take the noise and convert to a 2d tensor.
         x = self.linear_up(x)
         x = self.lu_bn(x)
         x = self.lu_relu(x)
-        x = x.view(self.batch_size, self.num_nodes[1], 7, 7)
+
+        # reshape
+        x = x.view(batch_size, self.num_nodes[1], 7, 7)
 
         for index in range(self.num_conv):
 
-            # take information from block on convolution
-            if self.upsamples[index] is True:
+            # upsample, if allowed
+            if self.upsamples[index] == 1:
                 x = self.upsample(x)
+            # convolve
             x = self.layers[index](x)
-            if self.batch_norms[index] != 0:
+
+            # batch norm, if allowed
+            if self.batch_norms[index] == 1:
                 x = self.batch_norms[index](x)
+
+            # activation function
             x = self.activation(self.activations[index])(x)
 
         return x

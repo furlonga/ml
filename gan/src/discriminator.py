@@ -7,7 +7,8 @@ torch.set_default_dtype(torch.float64)
 # TODO: Add device agnostic for cuda
 #       Additionally,
 class Discriminator(nn.Module):
-    def __init__(self, num_layers, num_nodes, device, activations, kernels, strides, dropouts, batch_size):
+    def __init__(self, num_layers, num_nodes, device, activations, kernels,
+                 strides, dropouts, batch_size):
 
         super(Discriminator, self).__init__()
         self.layers = nn.ModuleList([])
@@ -69,7 +70,7 @@ class Discriminator(nn.Module):
         self.train()
         optimizer.zero_grad()
         # Pass the batch through the model (CUDA)
-        prediction = self(train_batch.to(self.device, dtype= torch.float64))
+        prediction = self(train_batch.to(self.device, dtype=torch.float64))
 
         # Calculate loss
         loss = criterion(prediction, targets)
