@@ -1,0 +1,3 @@
+gan/data/*
+gan/src/__pycache__/*
+

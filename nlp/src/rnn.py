@@ -188,7 +188,7 @@ def train(data, _train_loader, _val_loader, encoder, decoder, epochs):
                                                             d_optimizer,
                                                             criterion,
                                                             data)
-            if i % 500 == 0:
+            if i % 10 == 0:
                 prediction = process_prediction(original, guess)
                 print(
                     f"@\tIndex: {i}\tLoss: {loss:.3f}\t\tJaccard: "

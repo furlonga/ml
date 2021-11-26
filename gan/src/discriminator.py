@@ -12,16 +12,15 @@ class Discriminator(nn.Module):
 
         super(Discriminator, self).__init__()
         self.layers = nn.ModuleList([])
-
         self.device = device
         self.batch_size = batch_size
         # num layers is input/output inclusive
         self.num_layers = num_layers
         self.output_layer = None
-        # num_nodes represents the nodes at each layer of the network and is of size num_layers
+        # num_nodes represents the nodes at each layer of the network and is
+        # of size num_layers
         self.num_nodes = num_nodes
         self.num_conv = 0
-
         # of size num_layers - 1
         self.activations = activations
         self.kernels = kernels
@@ -31,7 +30,7 @@ class Discriminator(nn.Module):
         self.dropouts = dropouts
 
         # append layers
-        for i in range(self.num_layers - 2):
+        for i in range(self.num_layers - 1):
             self.layers.append(nn.Conv2d(self.num_nodes[i],
                                          self.num_nodes[i + 1],
                                          padding=True,
@@ -40,7 +39,7 @@ class Discriminator(nn.Module):
             self.num_conv += 1
 
         # Asserts to ensure legal parameters were entered
-        assert not len(self.kernels) == len(self.strides) != len(
+        assert len(self.kernels) == len(self.strides) == len(
             self.activations) - 1, "mismatch on module parameters"
         assert not len(self.activations) == self.num_layers - 1 != len(
             self.num_nodes) - 1, "mismatch on module parameters"
@@ -69,18 +68,19 @@ class Discriminator(nn.Module):
         # This is called from GAN. Targets are manually supplied.
         if train:
             self.train()
-            optimizer.zero_grad()
         else:
             self.eval()
 
+        optimizer.zero_grad()
         # Pass the batch through the model (CUDA)
         prediction = self(train_batch.to(self.device, dtype=torch.float64))
-
         # Calculate loss
         loss = criterion(prediction, targets)
+
         if train:
             loss.backward()
             optimizer.step()
+
         self.eval()
         return loss
 
@@ -95,8 +95,13 @@ class Discriminator(nn.Module):
     @staticmethod
     def activation(name):
         if name == "relu":
-            return torch.relu
+            return torch.nn.functional.leaky_relu
         if name == "sigmoid":
             return torch.sigmoid
         if name == "tanh":
             return torch.tanh
+
+    def init_weights(m):
+        if type(m) == nn.Linear:
+            torch.nn.init.xavier_uniform(m.weight)
+            m.bias.data.fill_(0.01)

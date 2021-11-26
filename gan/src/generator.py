@@ -6,7 +6,7 @@ torch.set_default_dtype(torch.float64)
 
 class Generator(nn.Module):
     def __init__(self, num_layers, num_nodes, activations, kernels,
-                 strides, upsamples, batch_norms, dropouts):
+                 strides, upsamples, batch_norms, dropouts, batch_size):
         super(Generator, self).__init__()
 
         self.layers = nn.ModuleList([])
@@ -81,7 +81,6 @@ class Generator(nn.Module):
 
             # activation function
             x = self.activation(self.activations[index])(x)
-
         return x
 
     def batch_train(self, discriminator, train_batch, targets,
@@ -91,9 +90,11 @@ class Generator(nn.Module):
         self.train()
         optimizer.zero_grad()
         # Pass the batch through the model (CUDA)
-        prediction = discriminator(self(train_batch))
+        generated = self(train_batch)
+        prediction = discriminator(generated)
         # Calculate loss
         loss = criterion(prediction, targets)
+
         loss.backward()
         optimizer.step()
         self.eval()
@@ -110,7 +111,7 @@ class Generator(nn.Module):
     @staticmethod
     def activation(name):
         if name == "relu":
-            return torch.relu
+            return torch.nn.LeakyReLU()
         if name == "sigmoid":
             return torch.sigmoid
         if name == "tanh":
